@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
        enum:["Admin", "Student", "Instructor"],
        required:true,
     },
+    active:{
+        type:Boolean,
+        default:true,
+    },
+    approved:{
+        type:Boolean,
+        default:true,
+    },
     additionalDetails:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
@@ -48,12 +56,9 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"CourseProgress",
     }],
-    // confirmPassword:{
-    //     type:String,
-    //     requried:true,
-    // },
+    
 
-});
+},{timestamps:true});
 
 
 modoule.exports= mongoose.model("User",userSchema);

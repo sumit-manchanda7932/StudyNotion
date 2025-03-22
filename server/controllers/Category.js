@@ -1,8 +1,8 @@
-const Tag = require("../models/Category");
+const Category = require("../models/Category");
 
 //create tag ka handler function
 
-exports.createTag = async (req, res) => {
+exports.createCategory = async (req, res) => {
     try {
         //fetch data
         const { name, description } = req.body;
@@ -14,7 +14,7 @@ exports.createTag = async (req, res) => {
             })
         }
         //create entry in db
-        const tagDetails = await Tag.create({
+        const tagDetails = await Category.create({
             name: name,
             description: description
         })
@@ -36,18 +36,18 @@ exports.createTag = async (req, res) => {
 
 //get all tags
 
-exports.showAllTags = async (req, res) => {
+exports.showAllCategories = async (req, res) => {
     try {
-        const allTags = await Tag.find({}, { name: true, description: true });
+        const allCategories = await Category.find({}, { name: true, description: true });
         res.status(200).json({
             success: true,
-            message: "all tags returned successfully"
+          data:allCategories,
         })
     }
     catch (error) {
         return res.status(500).json({
             success: false,
-            message: "error in creating the tag"
+            message: error.message,
         })
     }
 }
@@ -57,7 +57,7 @@ exports.categoryPageDetails = async (req,res) => {
         //get categoryId 
         const {categoryId}=req.body;
         //get courses for category id
-        const selectedCategory = await Tag.findById(categoryId)
+        const selectedCategory = await Category.findById(categoryId)
                                           .populate("courses").exec();
         //validation
         if(!selectedCategory){
@@ -67,7 +67,7 @@ exports.categoryPageDetails = async (req,res) => {
             })
         }
         //get course for different categories
-        const differentCategory = await Tag.find({_id:{$ne:categoryId},}).populate("courses").exec();
+        const differentCategory = await Category.find({_id:{$ne:categoryId},}).populate("courses").exec();
         //get top selling courses
 
         //return response
