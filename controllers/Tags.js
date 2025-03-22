@@ -51,3 +51,41 @@ exports.showAllTags = async (req, res) => {
         })
     }
 }
+
+exports.categoryPageDetails = async (req,res) => {
+    try{
+        //get categoryId 
+        const {categoryId}=req.body;
+        //get courses for category id
+        const selectedCategory = await Tag.findById(categoryId)
+                                          .populate("courses").exec();
+        //validation
+        if(!selectedCategory){
+            return res.status(500).json({
+                success:false,
+                message:"data not found"
+            })
+        }
+        //get course for different categories
+        const differentCategory = await Tag.find({_id:{$ne:categoryId},}).populate("courses").exec();
+        //get top selling courses
+
+        //return response
+        return res.status(200).json({
+            success: true,
+            data:{
+                selectedCategory,
+                differentCategory
+            }
+        })
+
+
+    }
+    catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "error in fetching the category page details"
+        })
+    }
+    
+}
