@@ -1,4 +1,4 @@
-const Tag = require("../models/Tag");
+const Tag = require("../models/Category");
 
 //create tag ka handler function
 
