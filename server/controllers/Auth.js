@@ -4,6 +4,9 @@ const otpGenerator = require("otp-generator")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookie = require("cookie-parser")
+const mailSender = require("../utils/mailSender")
+const {passwordUpdated}= require("../mail/templates/passwordUpdate")
+const Profile = require("../models/Profile")
 require("dotenv").config();
 
 //sendOTP
@@ -37,7 +40,7 @@ exports.sendOTP = async (req, res) => {
         //check unique otp or not 
 
         let result = await OTP.findOne({ otp: otp });
-
+       
         while (result) {
             otp = otpGenerator(6, {
                 upperCaseAlphabets: false,
@@ -47,11 +50,13 @@ exports.sendOTP = async (req, res) => {
             result = await OTP.findOne({ otp: otp });
         }
 
-        const otpPayload = { email, otp };
 
+        const otpPayload = { email, otp };
+        
         //create an entry for OTP
 
         const otpBody = await OTP.create(otpPayload);
+      
         console.log(otpBody);
 
         //return response successfull
@@ -67,7 +72,7 @@ exports.sendOTP = async (req, res) => {
 
     catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(404).json({
             success: false,
             message: error.message,
         })
@@ -111,17 +116,19 @@ exports.signUp = async (req, res) => {
         //find most recent otp  for user
         const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
         console.log(recentOtp);
+      
 
+       
 
         //validate OTP
-        if (recentOtp.length == 0) {
+        if (recentOtp.length === 0) {
             //otp not found
             return res.status(400).jsone({
                 success: false,
                 message: "otp not found",
             })
         }
-        else if (otp !== recentOtp.otp) {
+        else if (otp !== recentOtp[0].otp) {
             //Invalid Otp
             return res.status(400).json({
                 success: false,
@@ -254,61 +261,61 @@ exports.login = async (req, res) => {
 }
 
 
-// //changePassword
-// exports.changePassword = async (req, res) => {
+//changePassword
+exports.changePassword = async (req, res) => {
 
-//     try {
-//         //get data from req body
-//         const { oldPassword, newPassword, confirmNewPassword } = req.body;
-//         //validation
-//         if (!oldPassword || !newPassword || !confirmNewPassword) {
-//             return res.status(402).json({
-//                 success: false,
-//                 message: "all fields required"
-//             })
-//         }
+    try {
+        //get data from req body
+        const { oldPassword, newPassword, confirmNewPassword } = req.body;
+        //validation
+        if (!oldPassword || !newPassword || !confirmNewPassword) {
+            return res.status(402).json({
+                success: false,
+                message: "all fields required"
+            })
+        }
 
-//         if (newPassword !== confirmNewPassword) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "password and confirm password does not match",
-//             })
-//         }
+        if (newPassword !== confirmNewPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "password and confirm password does not match",
+            })
+        }
 
-//         if (oldPassword === newPassword) {
-//             return res.status(401).json({
-//                 success: false,
-//                 message: "old password can't same as new password"
-//             })
-//         }
-
-
-//         //update pwd in db
-
-//         //send mail - password updated
-
-//         //return res
-
-//         res.status(200).json({
-//             success: true,
-//             message: "password changed successfully"
-//         })
-
-//     }
-
-//     catch (error) {
-//         console.log(error);
-//         res.status(400).json({
-//             success: false,
-//             message: error.message
-//         })
-//     }
+        if (oldPassword === newPassword) {
+            return res.status(401).json({
+                success: false,
+                message: "old password can't same as new password"
+            })
+        }
 
 
+        //update pwd in db
+
+        //send mail - password updated
+
+        //return res
+
+        res.status(200).json({
+            success: true,
+            message: "password changed successfully"
+        })
+
+    }
+
+    catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
 
 
 
-// }
+
+
+}
 
 
 
