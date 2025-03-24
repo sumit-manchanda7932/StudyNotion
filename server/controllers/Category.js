@@ -14,21 +14,21 @@ exports.createCategory = async (req, res) => {
             })
         }
         //create entry in db
-        const tagDetails = await Category.create({
+        const categoryDetails = await Category.create({
             name: name,
             description: description
         })
-        console.log(tagDetails);
+        console.log(categoryDetails);
         //return response
         return res.status(200).json({
             success: true,
-            message: "tag created successfully"
+            message: "Category created successfully"
         })
     }
     catch (error) {
         return res.status(500).json({
             success: false,
-            message: "error in creating the tag"
+            message: "error in creating the category"
         })
     }
 

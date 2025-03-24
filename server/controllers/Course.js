@@ -1,5 +1,5 @@
 const Course = require("../models/Course");
-const Tag = require("../models/Category")
+const Category = require("../models/Category")
 const User = require("../models/User")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 require("dotenv").config();
@@ -8,13 +8,13 @@ require("dotenv").config();
 exports.createCourse = async (req, res) => {
     try {
         //fetch data
-        const { courseName, courseDescription, whatYouWillLearn, price, tag } = req.body;
+        const { courseName, courseDescription, whatYouWillLearn, price, tag ,category} = req.body;
 
         //get thumbnail
         const thumbnail = req.files.thumbnailImage;
 
         //validation
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail) {
+        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category) {
             return res.status(400).json({
                 success: false,
                 message: "fill all the fields"
@@ -36,12 +36,12 @@ exports.createCourse = async (req, res) => {
 
 
         //check tag is valid or not 
-        const tagDetails = await Tag.findById(tag);
+        const categoryDetails = await Category.findById(category);
 
-        if (!tagDetails) {
+        if (!categoryDetails) {
             return res.status(404).json({
                 success: false,
-                message: "tag details not found",
+                message: "category details not found",
             })
         }
 
@@ -59,7 +59,7 @@ exports.createCourse = async (req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYouWillLearn,
             price,
-            tag: tagDetails._id,
+            tag: categoryDetails._id,
             thumbnail: thumbnailImage.secure_url
         })
 
@@ -81,7 +81,8 @@ exports.createCourse = async (req, res) => {
         //return response
         return res.status(200).json({
             success: true,
-            message: "course created successfully"
+            message: "course created successfully",
+            newCourse
         })
 
 

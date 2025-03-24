@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const User = require("../models/User")
+
 //auth
 exports.auth = async (req, res, next) => {
     try {
@@ -90,7 +91,7 @@ exports.isAdmin = async (req, res, next) => {
 
 
 
-exports.isInstuctor = async (req, res, next) => {
+exports.isInstructor = async (req, res, next) => {
     try {
         if (req.user.accountType !== "Instructor") {
             return res.status(401).json({

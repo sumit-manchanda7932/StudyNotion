@@ -1,5 +1,5 @@
 const Profile = require("../models/Profile");
-const { findById, findByIdAndDelete } = require("../models/SubSection");
+const SubSection = require("../models/SubSection");
 const User = require("../models/User");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 require("dotenv").config();
@@ -92,7 +92,8 @@ exports.getAllUserDetails =async(req,res)=>{
         const userDetails = await User.findById(id).populate("additionalDetails").exec();
         return res.status(200).json({
              success:true,
-             message:"user data fetched successfully"
+             message:"user data fetched successfully",
+             userDetails
         })
     }
     catch (error) {
@@ -132,7 +133,7 @@ exports.updateDisplayPicture = async (req,res)=>{
             process.env.FOLDER_NAME
          )
 
-         const uploadImage = await User.findByIdAndUpdate({_id:id},{image:uploadDetails.secure_url},{new:true})
+         const updatedImage = await User.findByIdAndUpdate({_id:id},{image:uploadDetails.secure_url},{new:true})
 
         res.status(200).json({
             success: true,
@@ -141,6 +142,7 @@ exports.updateDisplayPicture = async (req,res)=>{
         });
     }
     catch(error){
+        console.log(error);
         return res.status(500).json({
             success: false,
             message: error.message,
