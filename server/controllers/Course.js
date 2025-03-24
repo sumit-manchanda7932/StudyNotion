@@ -129,13 +129,15 @@ exports.getCourseDetails = async (req, res) => {
         //get id
         const { courseId } = req.body;
         // find course details 
-        const courseDetails = await Course.find({ _id: courseId }).populate({
-            path: "instructor",
-            populate: {
-                path: "additonalDetails",
-            }
+        const courseDetails = await Course.find({ _id: courseId })
+        // .populate({
+        //     path: "instructor",
+        //     populate: {
+        //         path: "additonalDetails",
+        //     }
 
-        }).populate("category").populate("ratingAndreviews")
+        // })
+        .populate("category")//.populate("ratingAndreviews")
             .populate({
                 path: "courseContent",
                 populate: {
@@ -162,7 +164,7 @@ exports.getCourseDetails = async (req, res) => {
     catch (error) {
       console.log(error);
       return res.status(400).json({
-        success:"true",
+        success:"false",
         message:error.message,
       })
     }

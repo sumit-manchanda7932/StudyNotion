@@ -16,7 +16,7 @@ exports.createSection = async (req, res) => {
         const newSection = (await Section.create({ sectionName }))
 
         //update course with section objectId
-        const updatedCourseDetails = await Course.findByIdAndUpdate({ courseId }, { $push: { courseContent: newSection._id } }, { new: true })
+        const updatedCourseDetails = await Course.findByIdAndUpdate({ _id:courseId }, { $push: { courseContent: newSection._id } }, { new: true })
 
         //return response
         return res.status(200).json({
@@ -51,7 +51,7 @@ exports.updateSection = async (req, res) => {
         }
 
         //update data
-        const section = await Section.findByIdAndUpdate({ sectionId }, {
+        const section = await Section.findByIdAndUpdate({_id: sectionId }, {
             sectionName,
         }, { new: true })
 
@@ -79,7 +79,7 @@ exports.updateSection = async (req, res) => {
 exports.deleteSection = async (req, res) => {
     try {
         //get id  - assuming that we are sending Id in params
-        const { sectionId } = req.params;
+        const { sectionId } = req.body;
         //validation
         if (!sectionId) {
             return res.status(500).json({
