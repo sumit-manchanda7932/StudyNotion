@@ -1,6 +1,8 @@
 const Profile = require("../models/Profile");
 const { findById, findByIdAndDelete } = require("../models/SubSection");
-const User = require("../models/User")
+const User = require("../models/User");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
+require("dotenv").config();
 
 exports.updateProfile = async (req, res) => {
     try {
@@ -100,5 +102,48 @@ exports.getAllUserDetails =async(req,res)=>{
             message: "error in fetching details",
             error: error.message
         })
+    }
+}
+
+
+
+exports.updateDisplayPicture = async (req,res)=>{
+    try{
+         const id = req.user.id;
+
+         const user =await User.findById(id);
+         if(!user){
+            return res.status(404).json({
+                success:false,
+                message:"User not found",
+            })
+         }
+
+         const image = req.files.pfp;
+         if(!image){
+            return res.status(404).json({
+                success: false,
+                message: "Image not found",
+            })
+         }
+
+         const uploadDetails = await uploadImageToCloudinary(
+            image,
+            process.env.FOLDER_NAME
+         )
+
+         const uploadImage = await User.findByIdAndUpdate({_id:id},{image:uploadDetails.secure_url},{new:true})
+
+        res.status(200).json({
+            success: true,
+            message: "Image updated successfully",
+            data: updatedImage,
+        });
+    }
+    catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
 }
