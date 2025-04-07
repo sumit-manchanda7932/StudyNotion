@@ -12,9 +12,11 @@ import Footer from '../components/common/Footer';
 import ExploreMore from '../components/core/HomePage/ExploreMore';
 
 
+
 function Home() {
     return (
         <div>
+          
             {  /* Section1 */}
             <div className=' mx-auto relative flex flex-col w-11/12 items-center max-w-maxContent justify-between text-white '>
                 <Link to={"/signup"}>
