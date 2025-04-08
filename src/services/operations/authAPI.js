@@ -88,11 +88,14 @@ export function signUp(
   
         console.log("SIGNUP API RESPONSE............", response)
   
-        if (!response.data.success) {
-          throw new Error(response.data.message)
-        }
+        if (response.data.success) {
         toast.success("Signup Successful")
         navigate("/login")
+        }
+        else{
+           toast.error("invalid otp");
+        }
+       
       } catch (error) {
         console.log("SIGNUP API ERROR............", error)
         toast.error("Signup Failed")

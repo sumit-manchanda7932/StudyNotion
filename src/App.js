@@ -7,6 +7,8 @@ import UpdatePassword from './pages/UpdatePassword';
 import VerifyEmail from './pages/VerifyEmail';
 import Login from "./pages/Login"
 import Signup from "./pages/Signup";
+import About from './pages/About';
+import ContactUs from './pages/ContactUs';
 function App() {
   return (
     <div className=" w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -31,6 +33,11 @@ function App() {
               <Signup />
           }
         />
+
+
+<Route path="/about" element={<About />} />
+
+<Route path="/contact" element={<ContactUs />} />
 
       </Routes>
     </div>

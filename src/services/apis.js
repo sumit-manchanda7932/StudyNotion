@@ -14,4 +14,9 @@ export const categories = {
     RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
     RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
   };
+
+
+  export const contactusEndpoint = {
+    CONTACT_US_API: BASE_URL + "/contact/contactUs",
+  };
   
