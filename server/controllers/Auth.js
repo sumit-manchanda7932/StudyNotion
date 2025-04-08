@@ -123,7 +123,7 @@ exports.signUp = async (req, res) => {
         //validate OTP
         if (recentOtp.length === 0) {
             //otp not found
-            return res.status(400).jsone({
+            return res.status(400).json({
                 success: false,
                 message: "otp not found",
             })

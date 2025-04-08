@@ -10,12 +10,6 @@ import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/apis'
 function Navbar() {
 
-    const sublinks=[{
-      name:"python",
-    },
-{
-   name:"web dev"
-}]
 
 
      const {token}=useSelector((state)=>state.auth);
@@ -23,7 +17,7 @@ function Navbar() {
      const {totalItems}=useSelector((state)=>state.cart);
      const location =useLocation()
 
-     const [subLinks, setSubLinks]=useState([])
+     const [sublinks, setSubLinks]=useState([])
           
       const fetchSublinks = async()=>{
         try{
@@ -38,7 +32,7 @@ function Navbar() {
     }
 
      useEffect(()=>{
-        // fetchSublinks();
+        fetchSublinks();
      },[])
 
      const matchRoutes =(route)=>
