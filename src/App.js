@@ -9,6 +9,11 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup";
 import About from './pages/About';
 import ContactUs from './pages/ContactUs';
+import MyProfile from "./components/dashboard/MyProfile"
+import Settings from './components/dashboard/Settings';
+import Dashboard from './pages/Dashboard';
+import PrivateRoute from './components/core/Auth/PrivateRoute';
+// import Cart from './components/dashboard/Cart';
 function App() {
   return (
     <div className=" w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -39,6 +44,17 @@ function App() {
 
 <Route path="/contact" element={<ContactUs />} />
 
+<Route
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route path="dashboard/my-profile" element={<MyProfile />} />
+          <Route path="dashboard/settings" element={<Settings/>} />
+          {/* <Route path="dashboard/cart" element={<Cart />} /> */}
+    </Route>
       </Routes>
     </div>
   );
