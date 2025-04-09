@@ -134,7 +134,7 @@ exports.updateDisplayPicture = async (req,res)=>{
          )
 
          const updatedImage = await User.findByIdAndUpdate({_id:id},{image:uploadDetails.secure_url},{new:true})
-
+         
         res.status(200).json({
             success: true,
             message: "Image updated successfully",
