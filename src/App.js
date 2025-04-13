@@ -9,15 +9,17 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup";
 import About from './pages/About';
 import ContactUs from './pages/ContactUs';
-import MyProfile from "./components/dashboard/MyProfile"
-import Settings from './components/dashboard/Settings';
+import MyProfile from "./components/core/dashboard/MyProfile"
+import Settings from './components/core/dashboard/Settings';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/core/Auth/PrivateRoute';
-import AddCourse from './components/dashboard/AddCourse';
+import AddCourse from './components/core/dashboard/AddCourse';
 // import Cart from './components/dashboard/Cart';
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import MyCourses from './components/dashboard/MyCourses/MyCourses';
+import MyCourses from './components/core/dashboard/MyCourses/MyCourses';
+import Catalog from './pages/Catalog';
+import CourseDetails from './pages/CourseDetails';
 function App() {
 
   const user = useSelector((state) => state.profile.user);
@@ -68,6 +70,9 @@ function App() {
           )
          }
     </Route>
+
+    <Route path="/catalog/:catalog" element={<Catalog />} />
+    <Route path="/courses/:courseId" element={<CourseDetails />} />
 
 
     <Route path="hello" element={<AddCourse/>}/>

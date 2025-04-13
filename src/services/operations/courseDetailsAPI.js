@@ -7,7 +7,7 @@ import { apiConnector } from "../apiconnector"
 import { courseEndpoints } from "../apis";
 
 const {
-  // COURSE_DETAILS_API,
+  COURSE_DETAILS_API,
   COURSE_CATEGORIES_API,
   // CREATE_CATEGORY_API,
   // GET_ALL_COURSE_API,
@@ -45,30 +45,30 @@ const {
 //   return result;
 // };
 
-// export const fetchCourseDetails = async (courseId, dispatch) => {
-//   // const toastId = toast.loading("Loading...")
-//   dispatch(setProgress(50));
-//   let result = null;
-//   try {
-//     const response = await apiConnector("POST", COURSE_DETAILS_API, {
-//       courseId,
-//     });
-//     console.log("COURSE_DETAILS_API API RESPONSE............", response.data);
+export const fetchCourseDetails = async (courseId, dispatch) => {
+  // const toastId = toast.loading("Loading...")
+  // dispatch(setProgress(50));
+  let result = null;
+  try {
+    const response = await apiConnector("POST", COURSE_DETAILS_API, {
+      courseId,
+    });
+    console.log("COURSE_DETAILS_API API RESPONSE............", response.data);
 
-//     if (!response.data.success) {
-//       throw new Error(response.data.message);
-//     }
-//     result = response.data.data[0];
-//   } catch (error) {
-//     console.log("COURSE_DETAILS_API API ERROR............", error);
-//     result = error.response.data;
-//     // toast.error(error.response.data.message);
-//   }
-//   // toast.dismiss(toastId)
-//   dispatch(setProgress(100));
-//   //   dispatch(setLoading(false));
-//   return result;
-// };
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    result = response.data.data[0];
+  } catch (error) {
+    console.log("COURSE_DETAILS_API API ERROR............", error);
+    result = error.response.data;
+    // toast.error(error.response.data.message);
+  }
+  // toast.dismiss(toastId)
+  // dispatch(setProgress(100));
+  //   dispatch(setLoading(false));
+  return result;
+};
 
 // fetching the available course categories
 export const fetchCourseCategories = async () => {

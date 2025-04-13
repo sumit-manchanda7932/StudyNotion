@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { fetchInstructorCourses } from '../../../services/operations/courseDetailsAPI'
+import { fetchInstructorCourses } from '../../../../services/operations/courseDetailsAPI'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import CoursesTable from './CoursesTable'

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-import {sidebarLinks} from "../../data/dashboard-links"
-import { logout } from '../../services/operations/authAPI'
+import {sidebarLinks} from "../../../data/dashboard-links"
+import { logout } from '../../../services/operations/authAPI'
 import { useDispatch, useSelector } from 'react-redux'
 import SidebarLink from './SidebarLink'
 import { useNavigate } from 'react-router-dom'
 import {VscSignOut} from "react-icons/vsc"
-import ConfirmationModal from '../common/ConfirmationModal'
+import ConfirmationModal from '../../common/ConfirmationModal'
 
 
 const Sidebar = () => {

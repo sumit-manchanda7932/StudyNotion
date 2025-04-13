@@ -70,12 +70,19 @@ exports.categoryPageDetails = async (req,res) => {
         const differentCategory = await Category.find({_id:{$ne:categoryId},}).populate("courses").exec();
         //get top selling courses
 
+        const selectedCourses = selectedCategory.courses;
+
+        let differentCourses = [];
+		for (const category of differentCategory) {
+			differentCourses.push(...category.courses);
+		}
+
         //return response
         return res.status(200).json({
             success: true,
             data:{
-                selectedCategory,
-                differentCategory
+                selectedCourses: selectedCourses,
+                differentCourses: differentCourses,
             }
         })
 

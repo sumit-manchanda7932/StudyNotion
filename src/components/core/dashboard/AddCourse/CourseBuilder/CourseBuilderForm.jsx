@@ -8,13 +8,13 @@ import {
   setCourse,
   setEditCourse,
   setStep,
-} from "../../../../slices/courseSlice"
+} from "../../../../../slices/courseSlice"
 import NestedView from "./NestedView";
 import toast from "react-hot-toast";
 import {
   createSection,
   updateSection,
-} from "../../../../services/operations/courseDetailsAPI"
+} from "../../../../../services/operations/courseDetailsAPI"
 
 const CourseBuilderForm = () => {
   const { token } = useSelector((state) => state.auth);

@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {deleteAccount } from "../../services/operations/profileAPI"
+import {deleteAccount } from "../../../services/operations/profileAPI"
 import {AiOutlineEyeInvisible} from 'react-icons/ai'
 import {AiOutlineEye} from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updatePfp,updateAdditionalDetails,updatePassword } from '../../services/operations/profileAPI'
+import { updatePfp,updateAdditionalDetails,updatePassword } from '../../../services/operations/profileAPI'
 
 
 

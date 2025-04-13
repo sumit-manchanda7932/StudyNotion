@@ -59,7 +59,8 @@ exports.createCourse = async (req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYouWillLearn,
             price,
-            tag: categoryDetails._id,
+            category: categoryDetails._id,
+            tag: tag,
             thumbnail: thumbnailImage.secure_url
         })
 
@@ -76,14 +77,24 @@ exports.createCourse = async (req, res) => {
             { new: true })
 
 
-        //update the Tag ka schema
+            await Category.findByIdAndUpdate(
+                { _id: category },
+                {
+                    $push: {
+                        courses: newCourse._id,
+                    },
+                },
+                { new: true }
+            );
 
+        
         //return response
         return res.status(200).json({
             success: true,
             message: "course created successfully",
             newCourse
         })
+
 
 
 

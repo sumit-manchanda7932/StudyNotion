@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { createSubSection} from "../../../../services/operations/courseDetailsAPI"
-import { setCourse } from "../../../../slices/courseSlice"
+import { createSubSection} from "../../../../../services/operations/courseDetailsAPI"
+import { setCourse } from "../../../../../slices/courseSlice"
 import { RxCross1 } from 'react-icons/rx';
 import Upload from './Upload'
-import IconBtn from "../../../common/IconBtn";
+import IconBtn from "../../../../common/IconBtn";
 import { useState } from 'react';
 
 
