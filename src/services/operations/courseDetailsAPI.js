@@ -21,7 +21,7 @@ const {
   // DELETE_SUBSECTION_API,
   GET_ALL_INSTRUCTOR_COURSES_API,
   // DELETE_COURSE_API,
-  // GET_FULL_COURSE_DETAILS_AUTHENTICATED,
+  GET_FULL_COURSE_DETAILS_AUTHENTICATED,
   // CREATE_RATING_API,
   // LECTURE_COMPLETION_API,
   // ADD_COURSE_TO_CATEGORY_API,
@@ -313,37 +313,37 @@ export const fetchInstructorCourses = async (token) => {
 //   toast.dismiss(toastId);
 // };
 
-// // get full details of a course
-// export const getFullDetailsOfCourse = async (courseId, token) => {
-//   const toastId = toast.loading("Loading...");
-//   //   dispatch(setLoading(true));
-//   let result = null;
-//   try {
-//     const response = await apiConnector(
-//       "POST",
-//       GET_FULL_COURSE_DETAILS_AUTHENTICATED,
-//       {
-//         courseId,
-//       },
-//       {
-//         Authorisation: `Bearer ${token}`,
-//       }
-//     );
-//     console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response);
+// get full details of a course
+export const getFullDetailsOfCourse = async (courseId, token) => {
+  const toastId = toast.loading("Loading...");
+  //   dispatch(setLoading(true));
+  let result = null;
+  try {
+    const response = await apiConnector(
+      "POST",
+      GET_FULL_COURSE_DETAILS_AUTHENTICATED,
+      {
+        courseId,
+      },
+      {
+        Authorisation: `Bearer ${token}`,
+      }
+    );
+    console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response);
 
-//     if (!response.data.success) {
-//       throw new Error(response.data.message);
-//     }
-//     result = response?.data?.data;
-//   } catch (error) {
-//     console.log("COURSE_FULL_DETAILS_API API ERROR............", error);
-//     result = error.response.data;
-//     // toast.error(error.response.data.message);
-//   }
-//   toast.dismiss(toastId);
-//   //   dispatch(setLoading(false));
-//   return result;
-// };
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    result = response?.data?.data;
+  } catch (error) {
+    console.log("COURSE_FULL_DETAILS_API API ERROR............", error);
+    result = error.response.data;
+    // toast.error(error.response.data.message);
+  }
+  toast.dismiss(toastId);
+  //   dispatch(setLoading(false));
+  return result;
+};
 
 // // mark a lecture as complete
 // export const markLectureAsComplete = async (data, token) => {

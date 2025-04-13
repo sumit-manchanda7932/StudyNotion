@@ -14,12 +14,15 @@ import Settings from './components/core/dashboard/Settings';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/core/Auth/PrivateRoute';
 import AddCourse from './components/core/dashboard/AddCourse';
-// import Cart from './components/dashboard/Cart';
+import Cart from './components/core/dashboard/Cart';
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "./utils/constants";
 import MyCourses from './components/core/dashboard/MyCourses/MyCourses';
 import Catalog from './pages/Catalog';
 import CourseDetails from './pages/CourseDetails';
+import EnrolledCourses from './components/core/dashboard/EnrolledCourses';
+import ViewCourse from './pages/ViewCourse';
+import VideoDetails from './components/core/ViewCourse/ViewDetails';
 function App() {
 
   const user = useSelector((state) => state.profile.user);
@@ -73,6 +76,39 @@ function App() {
 
     <Route path="/catalog/:catalog" element={<Catalog />} />
     <Route path="/courses/:courseId" element={<CourseDetails />} />
+
+
+    {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route path="dashboard/cart" element={<Cart />} />
+              <Route
+                path="dashboard/enrolled-courses"
+                element={<EnrolledCourses />}
+              />
+              {/* <Route
+                path="dashboard/purchase-history"
+                element={<PurchaseHistory />}
+              /> */}
+            </>
+          )}
+
+
+<Route
+          element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
+          }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="/dashboard/enrolled-courses/view-course/:courseId/section/:sectionId/sub-section/:subsectionId"
+                element={<VideoDetails />}
+              />
+            </>
+          )}
+        </Route>
 
 
     <Route path="hello" element={<AddCourse/>}/>

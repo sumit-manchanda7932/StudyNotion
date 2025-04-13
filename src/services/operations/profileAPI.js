@@ -3,6 +3,7 @@ import { apiConnector } from "../apiconnector";
 import { settingsEndpoints} from "../apis";
 import toast from "react-hot-toast";
 import { logout } from "./authAPI";
+import { profileEndpoints } from "../apis";
 
 
 
@@ -103,3 +104,36 @@ export async function updatePfp(token,pfp){
     }
   }
   
+//getEnrolledCourses
+export async function getUserCourses(token,dispatch){
+  // const toastId = toast.loading("Loading...");
+  // dispatch(setProgress);
+  let result = []
+  try {
+    console.log("BEFORE Calling BACKEND API FOR ENROLLED COURSES");
+    const response = await apiConnector(
+      "GET",
+      profileEndpoints.GET_USER_ENROLLED_COURSES_API,
+      null,
+      {
+        Authorisation: `Bearer ${token}`,
+      }
+    )
+    console.log("AFTER Calling BACKEND API FOR ENROLLED COURSES");
+  //   console.log(
+  //     "GET_USER_ENROLLED_COURSES_API API RESPONSE............",
+  //     response
+  //   )
+
+    if (!response.data.success) {
+      throw new Error(response.data.message)
+    }
+    result = response.data.data;
+  } catch (error) {
+    console.log("GET_USER_ENROLLED_COURSES_API API ERROR............", error)
+    toast.error("Could Not Get Enrolled Courses")
+  }
+  // dispatch(setProgress(100));
+  // toast.dismiss(toastId)
+  return result
+}

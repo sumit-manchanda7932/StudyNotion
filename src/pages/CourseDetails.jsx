@@ -56,16 +56,16 @@ const CourseDetails = () => {
     // }, [courseDetail?.ratingAndReviews]);
 
 
-    //add to cart
-    // const handelAddToCart = () => {
-    //     if(token){
-    //     dispatch(addToCart(courseDetail));
-    //     // console.log("handelAddToCart -> courseId", courseDetail._id)
-    //     }
-    //     else{
-    //         navigate('/login');
-    //     }
-    // }
+    // add to cart
+    const handelAddToCart = () => {
+        if(token){
+        dispatch(addToCart(courseDetail));
+        // console.log("handelAddToCart -> courseId", courseDetail._id)
+        }
+        else{
+            navigate('/login');
+        }
+    }
 
 
     useEffect (() => {
@@ -132,7 +132,7 @@ const CourseDetails = () => {
                                         (
                                             cart?.find((item) => item?._id === courseDetail?._id) ?
                                                 (<button onClick={() => { navigate("/dashboard/cart") }} className='blackButton text-richblack-5'>Go to Cart</button>) :
-                                                (<button className='blackButton text-richblack-5'>Add to Cart</button>)
+                                                (<button className='blackButton text-richblack-5' onClick={handelAddToCart} >Add to Cart</button>)
                                         )
                                 }
                             </>
@@ -157,7 +157,7 @@ const CourseDetails = () => {
                                                 (
                                                     cart?.find((item) => item._id === courseDetail._id) ?
                                                         (<button onClick={() => { navigate("/dashboard/cart") }} className='blackButton text-richblack-5'>Go to Cart</button>) :
-                                                        (<button className='blackButton text-richblack-5'>Add to Cart</button>)
+                                                        (<button className='blackButton text-richblack-5' onClick={handelAddToCart} >Add to Cart</button>)
                                                 )
                                         }
                                     </>

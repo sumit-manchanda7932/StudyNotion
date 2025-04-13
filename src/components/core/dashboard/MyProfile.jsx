@@ -8,6 +8,7 @@ const MyProfile = () => {
 
     const {user} = useSelector((state) => state.profile)
     const navigate = useNavigate();
+    console.log(user);
   return (
     <div className='mx-auto w-11/12 max-w-[1000px] py-10'>
         <div className='py-10'>
