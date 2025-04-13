@@ -1,5 +1,6 @@
 const SubSection = require("../models/SubSection")
 const Section = require("../models/Section")
+const Course =require("../models/Course")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 require("dotenv").config()
 const mongoose = require("mongoose");
@@ -7,12 +8,12 @@ const mongoose = require("mongoose");
 exports.createSubSection = async (req, res) => {
     try {
         //fetch data
-        const { title, timeDuration, description, sectionId } = req.body;
+        const { title, timeDuration, description, sectionId,courseId } = req.body;
         // const { video } = req.files.videoFile
         const video = req.files.videoFile;
-        console.log(title,timeDuration,description,sectionId);
+        console.log(title,timeDuration,description,sectionId,courseId);
         //validation
-        if (!title || !timeDuration || !description || !video || !sectionId) {
+        if (!title  || !description || !video || !sectionId || !courseId) {
             return res.status(400).json({
                 success: false,
                 message: "all fields are mandatory"
@@ -42,11 +43,13 @@ exports.createSubSection = async (req, res) => {
         }, { new: true })
       
         
+
+        const updatedCourse = await Course.findById(courseId).populate({ path: "courseContent", populate: { path: "subSection" } }).exec();
       
         return res.status(200).json({
             success: true,
             message: "section added successfully",
-            updatedSection
+            updatedCourse
         })
     }
     catch (error) {

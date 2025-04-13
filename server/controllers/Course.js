@@ -174,3 +174,29 @@ exports.getCourseDetails = async (req, res) => {
 
 
 
+
+// Function to get all courses of a particular instructor
+exports.getInstructorCourses = async (req, res) => {
+	try {
+		// Get user ID from request object
+		const userId = req.user.id;
+
+		// Find all courses of the instructor
+		const allCourses = await Course.find({ instructor: userId });
+
+		// Return all courses of the instructor
+		res.status(200).json({
+			success: true,
+			data: allCourses,
+		});
+	} catch (error) {
+		// Handle any errors that occur during the fetching of the courses
+		console.error(error);
+		res.status(500).json({
+			success: false,
+			message: "Failed to fetch courses",
+			error: error.message,
+		});
+	}
+}
+
